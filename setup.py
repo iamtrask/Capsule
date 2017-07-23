@@ -12,7 +12,7 @@ setup(
     name = "capsule",
     version = "0.1.0",
     author = "Amber Trask",
-    author_email = "contact@openmined.com",
+    author_email = "contact@openmined.org",
     description = ("A library for time released public/private homomorphic encryption keys."),
     license = "Apache-2.0",
     keywords = "deep learning machine artificial intelligence homomorphic encryption",
