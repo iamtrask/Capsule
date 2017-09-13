@@ -2,3 +2,5 @@ build/
 dist/
 capsule.egg-info/
 */**/__pycache__
+*.rdb
+*/*.rdb
