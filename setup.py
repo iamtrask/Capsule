@@ -16,7 +16,7 @@ setup(
     description = ("A library for time released public/private homomorphic encryption keys."),
     license = "Apache-2.0",
     keywords = "deep learning machine artificial intelligence homomorphic encryption",
-    packages=['capsule', 'test'],
+    packages=['capsule'],
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 1 - Alpha",
