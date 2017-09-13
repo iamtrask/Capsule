@@ -1,5 +1,5 @@
 # capsule
-Service for Storing Secrets Off Blockchain
+Service for Storing And Interacting with Secrets (particularly Keys) Off Blockchain
 
 
 
