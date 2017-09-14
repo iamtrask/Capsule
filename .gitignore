@@ -4,3 +4,4 @@ capsule.egg-info/
 */**/__pycache__
 *.rdb
 */*.rdb
+*.sqlite3

@@ -3,3 +3,4 @@ requests
 pytest-flake8
 pytest
 Flask
+Django==1.11
