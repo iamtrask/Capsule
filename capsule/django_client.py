@@ -29,6 +29,7 @@ class LocalDjangoCapsuleClient():
         r = requests.post('http://'+self.host+':'+self.port+"/decrypt/"+str(id)+'/', data=x.serialize())
         try:
             out = syft.tensor.TensorBase.deserialize(r.content)
-        except:
+        except Exception as e:
+            print(e)
             out = float(r.content)
         return out
