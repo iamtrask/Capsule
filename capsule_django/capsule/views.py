@@ -21,6 +21,7 @@ def get_keys(id):
     pk, sk = KeyPair().deserialize(pk_bin, sk_bin)
     return (pk, sk)
 
+
 @csrf_exempt
 def keygen(request, id, scheme):
     # id: url
@@ -30,33 +31,28 @@ def keygen(request, id, scheme):
         pk, sk = Paillier()
         save_keys(conn, id, pk, sk)
         serialized = pk.serialize()
-        print('Type is ', type(serialized))
+        #print('Type is ', type(serialized))
         return HttpResponse(serialized)
     else:
         return HttpResponse("Unknown Scheme:" + str(scheme))
+
 
 @csrf_exempt
 def bootstrap(request, key_id=None):
     # id: url
     # data: post
-    if key_id:
-        cyphertext = sy.tensor.TensorBase.deserialize(request.body)
-        pk, sk = get_keys(key_id)
-        plaintext = cyphertext.decrypt(sk)
-        try:
-            b = plaintext.serialize()
-        except:
-            b = str(plaintext)
-        return HttpResponse(b)
-    else:
-        return HttpResponse('No Key ID')
+    cyphertext = sy.tensor.TensorBase.deserialize(request.body)
+    pk, sk = get_keys(key_id)
+    plaintext = cyphertext.decrypt(sk)
+    clean_cyphertext = plaintext.encrypt(pk)
+    return HttpResponse(clean_cyphertext.serialize())
+
 
 @csrf_exempt
 def decrypt(request, key_id=None):
     # id: url
     # data: post
     if key_id:
-        print(request.body)
         cyphertext = sy.tensor.TensorBase.deserialize(request.body)
         pk, sk = get_keys(key_id)
         plaintext = cyphertext.decrypt(sk)
