@@ -1,48 +1,23 @@
-from syft.he.paillier.keys import KeyPair
-from syft.he.keys import Paillier
-import syft as sy
-from flask import Flask, request, Response
-import redis, os, pickle
+import zmq
+import tasks
+import json
+from ast import literal_eval
+# import logging
 
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind('tcp://127.0.0.1:5001')
 
-redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
-conn = redis.from_url(redis_url)
-app = Flask(__name__)
-
-@app.route('/keygen/<id>/<scheme>')
-def create_keys(id,scheme):
-    if(scheme == 'paillier'):
-        pk,sk = Paillier()
-        save_keys(conn,id,pk,sk)
-        return pk.serialize()
-    else:
-        return "Unknown Scheme:" + str(scheme)
-
-@app.route('/bootstrap/<key_id>',methods=['POST'])
-def bootstrap(key_id):
-    cyphertext = sy.tensor.TensorBase.deserialize(request.data)
-    pk,sk = get_keys(key_id)
-    plaintext = cyphertext.decrypt(sk)
-    clean_cyphertext = plaintext.encrypt(pk)
-    return clean_cyphertext.serialize()
-
-@app.route('/decrypt/<key_id>',methods=['POST'])
-def decrypt(key_id):
-    cyphertext = sy.tensor.TensorBase.deserialize(request.data)
-    pk,sk = get_keys(key_id)
-    plaintext = cyphertext.decrypt(sk)
+while True:
     try:
-        b = plaintext.serialize()
-    except:
-        b = str(plaintext)
-    return b
+        task_data = socket.recv()
+        task_data = literal_eval(task_data.decode('utf-8'))
+        task = task_data.pop('task')
+        task_kwargs = task_data.pop('task_kwargs')
+        server_data = getattr(tasks, task)(**task_kwargs)
+        socket.send(server_data)
+    except Exception as e:
+        print(e)
 
-def save_keys(conn,id,pk,sk):
-    conn.set(id+'_public',pk.serialize())
-    conn.set(id+'_private',sk.serialize())
-
-def get_keys(id):
-    pk_bin = conn.get(id+'_public')
-    sk_bin = conn.get(id+'_private')
-    pk,sk = KeyPair().deserialize(pk_bin,sk_bin)
-    return (pk,sk)
+socket.close()
+context.term()
