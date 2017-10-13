@@ -3,11 +3,19 @@
 
 The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library. 
 
-## Setup
+## Step 1: Open Terminal and Run:
 
 ```sh 
-build_and_run_zmq.sh
+sh build_and_run_zmq.sh
 ```
+
+## Step 2: Open Terminal and Run:
+
+```sh 
+jupyter notebook
+```
+
+## Step 3: Select Notebook
 
 ## Current Research
 
