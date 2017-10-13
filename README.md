@@ -5,7 +5,8 @@ The goal of this library is to allow developers of OpenMined to simulate partici
 
 ## Setup
 
-```sh build_and_run_zmq.sh
+```sh 
+build_and_run_zmq.sh
 ```
 
 ## Current Research
