@@ -17,6 +17,8 @@ jupyter notebook
 
 ## Step 3: Select Notebook
 
+In the [notebooks](./notebooks) folder, you'll find that there are several example notebooks showing how to use the Capsule. You'll find that the general setup is a server (which you started in Step 1) which holds onto secret information. From the Jupyter notebook you can interact with the server as if you were interacting with individuals on a live global network.
+
 ## Current Research
 
 ### NuCypherKMS: decentralized key management system
