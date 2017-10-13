@@ -1,7 +1,12 @@
 # capsule
-Service for Storing And Interacting with Secrets (particularly Keys) Off Blockchain
+> Service for Storing And Interacting with Secrets (particularly Keys or MPC Shares) Off Blockchain
 
+The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library. 
 
+## Setup
+
+```sh build_and_run_zmq.sh
+```
 
 ## Current Research
 
