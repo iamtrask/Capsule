@@ -1,7 +1,23 @@
 # capsule
-Service for Storing And Interacting with Secrets (particularly Keys) Off Blockchain
+> Service for Storing And Interacting with Secrets (particularly Keys or MPC Shares) Off Blockchain
 
+The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library. 
 
+## Step 1: Open Terminal and Run:
+
+```sh 
+sh build_and_run_zmq.sh
+```
+
+## Step 2: Open Terminal and Run:
+
+```sh 
+jupyter notebook
+```
+
+## Step 3: Select Notebook
+
+In the [notebooks](./notebooks) folder, you'll find that there are several example notebooks showing how to use the Capsule. You'll find that the general setup is a server (which you started in Step 1) which holds onto secret information. From the Jupyter notebook you can interact with the server as if you were interacting with individuals on a live global network.
 
 ## Current Research
 
