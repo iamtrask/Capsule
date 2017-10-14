@@ -6,7 +6,7 @@ The goal of this library is to allow developers of OpenMined to simulate partici
 ## Step 1: Open Terminal and Run:
 
 ```sh 
-sh build_and_run_zmq.sh
+sh build_and_run.sh
 ```
 
 ## Step 2: Open Terminal and Run:
