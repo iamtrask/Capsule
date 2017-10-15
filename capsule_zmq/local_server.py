@@ -6,7 +6,7 @@ from ast import literal_eval
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind('tcp://127.0.0.1:5001')
+socket.bind('tcp://127.0.0.1:5002')
 
 while True:
     try:
@@ -15,7 +15,11 @@ while True:
         task = task_data.pop('task')
         task_kwargs = task_data.pop('task_kwargs')
         server_data = getattr(tasks, task)(**task_kwargs)
-        socket.send(server_data)
+        if type(server_data) != bytes:
+            socket.send_string(server_data)
+        else:
+            socket.send(server_data)
+
     except Exception as e:
         print(e)
 
