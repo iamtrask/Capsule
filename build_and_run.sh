@@ -1,2 +1,3 @@
+pip install -r requirements.txt
 python setup.py install
-FLASK_APP=capsule/local_server.py flask run
+python capsule/local_server.py
