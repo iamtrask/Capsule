@@ -2,6 +2,9 @@ from syft.he.paillier.keys import KeyPair, PublicKey
 import syft
 import redis, os, requests, random
 import zmq, json
+from syft.mpc.rss import MPCRepo
+from syft.mpc.rss.tensor import RSSMPCTensor
+import pickle
 
 class LocalCapsuleClient():
 
@@ -55,3 +58,32 @@ class LocalCapsuleClient():
             print(e)
             out = float(r)
         return out
+
+class MPCCapsuleClient():
+    def __init__(self,repo):
+        self.id = str(random.randint(0,2**32))
+        self.repo = repo
+        ctx = zmq.Context()
+        self.task_socket = ctx.socket(zmq.REQ)
+        self.task_socket.connect('tcp://127.0.0.1:5003')
+
+    def create_siblings(self):
+        data = pickle.dumps(self.repo)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({"task":"create_siblings", "task_kwargs":task_kwargs}))
+        r = self.task_socket.recv()
+        self.repo1 = pickle.loads(r)
+        return self.repo1
+
+    def save(self, repo1):
+        data = pickle.dumps(repo1)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({"task":"save_ints", "task_kwargs":task_kwargs}))
+        r = self.task_socket.recv()
+        return True
