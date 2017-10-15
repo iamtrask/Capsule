@@ -1,15 +1,15 @@
 from syft.he.paillier.keys import KeyPair
 from syft.he.keys import Paillier
 import syft as sy
-from flask import Flask, request, Response
+# from flask import Flask, request, Response
 import redis, os, pickle
 
 
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
-app = Flask(__name__)
+# app = Flask(__name__)
 
-@app.route('/keygen/<id>/<scheme>')
+# @app.route('/keygen/<id>/<scheme>')
 def create_keys(id,scheme):
     if(scheme == 'paillier'):
         pk,sk = Paillier()
@@ -18,17 +18,17 @@ def create_keys(id,scheme):
     else:
         return "Unknown Scheme:" + str(scheme)
 
-@app.route('/bootstrap/<key_id>',methods=['POST'])
-def bootstrap(key_id):
-    cyphertext = sy.tensor.TensorBase.deserialize(request.data)
+# @app.route('/bootstrap/<key_id>',methods=['POST'])
+def bootstrap(key_id, data):
+    cyphertext = sy.tensor.TensorBase.deserialize(data)
     pk,sk = get_keys(key_id)
     plaintext = cyphertext.decrypt(sk)
     clean_cyphertext = plaintext.encrypt(pk)
     return clean_cyphertext.serialize()
 
-@app.route('/decrypt/<key_id>',methods=['POST'])
-def decrypt(key_id):
-    cyphertext = sy.tensor.TensorBase.deserialize(request.data)
+# @app.route('/decrypt/<key_id>',methods=['POST'])
+def decrypt(key_id, data):
+    cyphertext = sy.tensor.TensorBase.deserialize(data)
     pk,sk = get_keys(key_id)
     plaintext = cyphertext.decrypt(sk)
     try:
