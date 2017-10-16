@@ -25,4 +25,3 @@ setup(
         "Development Status :: 1 - Alpha",
     ],
 )
-
