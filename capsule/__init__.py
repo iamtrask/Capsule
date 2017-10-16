@@ -1,2 +1,1 @@
-from capsule import client
-from capsule import local_server
+from capsule import zmq_client
