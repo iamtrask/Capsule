@@ -1,8 +1,6 @@
 import zmq
 import tasks
-import json
 from ast import literal_eval
-# import logging
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
@@ -18,6 +16,7 @@ while True:
         socket.send(server_data)
     except Exception as e:
         print(e)
+
 
 socket.close()
 context.term()
