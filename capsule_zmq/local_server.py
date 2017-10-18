@@ -23,7 +23,7 @@ while True:
             socket.send_string(server_data)
         else:
             socket.send(server_data)
-    except e:
+    except Exception as e:
         print(e)
 
 
