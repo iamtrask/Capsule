@@ -5,6 +5,7 @@ import zmq, json
 from syft.mpc.rss import MPCRepo
 from syft.mpc.rss.tensor import RSSMPCTensor
 import pickle
+from pprint import pprint
 
 class LocalCapsuleClient():
 
@@ -24,7 +25,7 @@ class LocalCapsuleClient():
         }
         self.task_socket.send_string(str({"task":"create_keys", "task_kwargs":task_kwargs}))
         r = self.task_socket.recv()
-        pk = PublicKey.deserialize(r)
+        pk = PublicKey.deserialize(r.decode())
         pk.id = id
         return pk
 

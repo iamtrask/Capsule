@@ -44,5 +44,5 @@ def save_keys(conn,id,pk,sk):
 def get_keys(id):
     pk_bin = conn.get(id+'_public')
     sk_bin = conn.get(id+'_private')
-    pk,sk = KeyPair().deserialize(pk_bin,sk_bin)
+    pk,sk = KeyPair().deserialize(pk_bin.decode(),sk_bin.decode())
     return (pk,sk)

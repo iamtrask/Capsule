@@ -2,11 +2,15 @@ import zmq
 import tasks
 import json
 from ast import literal_eval
+
 # import logging
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind('tcp://127.0.0.1:5002')
+print("Running server at //127.0.0.1:5002")
+
+
 
 while True:
     try:
@@ -19,9 +23,10 @@ while True:
             socket.send_string(server_data)
         else:
             socket.send(server_data)
-
-    except Exception as e:
+    except e:
         print(e)
+
+
 
 socket.close()
 context.term()
