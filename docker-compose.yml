@@ -1,0 +1,11 @@
+version: '3'
+services:
+  notebook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports: ["5002:5002"]
+    links:
+    - redis
+  redis:
+    image: redis
