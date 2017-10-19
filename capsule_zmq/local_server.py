@@ -7,13 +7,14 @@ from ast import literal_eval
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
-socket.bind('tcp://127.0.0.1:5002')
-print("Running server at //127.0.0.1:5002")
+socket.bind('tcp://0.0.0.0:5002')
+print("Running server at //0.0.0.0:5002")
 
 
 
-while True:
-    try:
+
+try:
+    while True:
         task_data = socket.recv()
         task_data = literal_eval(task_data.decode('utf-8'))
         task = task_data.pop('task')
@@ -23,8 +24,8 @@ while True:
             socket.send_string(server_data)
         else:
             socket.send(server_data)
-    except Exception as e:
-        print(e)
+except Exception as e:
+    print(e)
 
 
 
