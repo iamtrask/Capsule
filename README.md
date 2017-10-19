@@ -1,17 +1,19 @@
 # capsule
+[![Build Status](https://travis-ci.org/OpenMined/Capsule.svg?branch=master)](https://travis-ci.org/OpenMined/Capsule)
+
 > Service for Storing And Interacting with Secrets (particularly Keys or MPC Shares) Off Blockchain
 
-The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library. 
+The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library.
 
 ## Step 1: Open Terminal and Run:
 
-```sh 
+```sh
 sh build_and_run.sh
 ```
 
 ## Step 2: Open Terminal and Run:
 
-```sh 
+```sh
 jupyter notebook
 ```
 
@@ -37,7 +39,7 @@ In the [notebooks](./notebooks) folder, you'll find that there are several examp
 ### Fast and Secure Linear Regression and Biometric Authentication with Security Update
 - https://eprint.iacr.org/2015/692.pdf
 
-### A Comparison of the Homomorphic Encryption Schemes: 
+### A Comparison of the Homomorphic Encryption Schemes:
 - https://eprint.iacr.org/2014/062.pdf
 
 ### Multi-bit homomorphic encryption based on learning with errors over rings

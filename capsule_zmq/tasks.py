@@ -40,12 +40,12 @@ def decrypt(key_id, data):
 
 
 def save_keys(conn, id, pk, sk):
-    conn.set(id+'_public', pk.serialize())
-    conn.set(id+'_private', sk.serialize())
+    conn.set(id + '_public', pk.serialize())
+    conn.set(id + '_private', sk.serialize())
 
 
 def get_keys(id):
-    pk_bin = conn.get(id+'_public')
-    sk_bin = conn.get(id+'_private')
+    pk_bin = conn.get(id + '_public')
+    sk_bin = conn.get(id + '_private')
     pk, sk = KeyPair().deserialize(pk_bin, sk_bin)
     return (pk, sk)
