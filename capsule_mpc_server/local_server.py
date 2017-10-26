@@ -12,6 +12,7 @@ while True:
         task_data = socket.recv()
         task_data = literal_eval(task_data.decode('utf-8'))
         task = task_data.pop('task')
+        print(task)
         task_kwargs = task_data.pop('task_kwargs')
         server_data = getattr(tasks, task)(**task_kwargs)
         if type(server_data) != bytes:
@@ -19,7 +20,7 @@ while True:
         else:
             socket.send(server_data)
     except Exception as e:
-        print(e)
+        print(str(e))
 
 socket.close()
 context.term()
