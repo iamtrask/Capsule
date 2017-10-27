@@ -18,6 +18,7 @@ def create_siblings(key_id, data):
     sam.set_siblings(bob, repo)
     return pickle.dumps(repo)
 
+
 def create_parties(key_id, data):
     repo = pickle.loads(data)
     bob = SPDZMPCRepo()
@@ -25,6 +26,7 @@ def create_parties(key_id, data):
     repo.set_parties(bob)
 
     return pickle.dumps(repo)
+
 
 def save_ints(key_id, data):
     id = key_id
@@ -34,12 +36,14 @@ def save_ints(key_id, data):
     save_siblings(id, conn, bob, sam)
     return ('True')
 
+
 def save_ints_spdz(key_id, data):
     id = key_id
     repo = pickle.loads(data)
     bob = repo.another_party[0]
     conn.set(id + '_bob', bob.ints)
     return ('True')
+
 
 def save_siblings(id, conn, bob, sam):
     conn.set(id + '_bob', bob.ints)

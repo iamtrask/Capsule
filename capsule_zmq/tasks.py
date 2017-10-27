@@ -34,7 +34,7 @@ def decrypt(key_id, data):
     plaintext = cyphertext.decrypt(sk)
     try:
         b = plaintext.serialize()
-    except:
+    except Exception:
         b = str(plaintext)
     return b
 
