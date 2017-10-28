@@ -1,14 +1,13 @@
 import zmq
 import tasks
 from ast import literal_eval
-# import logging
 
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 socket.bind('tcp://127.0.0.1:5005')
 
 while True:
-        #try:
+     try:
         task_data = socket.recv()
         task_data = literal_eval(task_data.decode('utf-8'))
         task = task_data.pop('task')
@@ -18,8 +17,8 @@ while True:
             socket.send_string(server_data)
         else:
             socket.send(server_data)
-        #except Exception as e:
-        #print(e)
+     except Exception as e:
+        print(e)
 
 socket.close()
 context.term()
