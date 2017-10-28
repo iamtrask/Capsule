@@ -58,10 +58,8 @@ class LocalCapsuleClient():
         }))
         r = self.task_socket.recv()
         try:
-            # print("Hello.........................")
             out = syft.tensor.TensorBase.deserialize(r)
         except Exception as e:
-            # print("Hello.........................")
             print(e)
             out = float(r)
         return out
@@ -99,7 +97,6 @@ class MPCCapsuleClient():
             "task": "save_ints",
             "task_kwargs": task_kwargs
         }))
-        # r = self.task_socket.recv()
         self.task_socket.recv()
         return True
 
@@ -135,6 +132,5 @@ class SPDZCapsuleClient():
             "task": "save_parties_ints",
             "task_kwargs": task_kwargs
         }))
-        # r = self.task_socket.recv()
         self.task_socket.recv()
         return True
