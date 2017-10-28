@@ -1,14 +1,12 @@
 from syft.he.paillier.keys import KeyPair
 from syft.he.keys import Paillier
 import syft as sy
-# from flask import Flask, request, Response
 import os
 import redis
 
 
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
-# app = Flask(__name__)
 
 
 def create_keys(id, scheme):
@@ -34,7 +32,7 @@ def decrypt(key_id, data):
     plaintext = cyphertext.decrypt(sk)
     try:
         b = plaintext.serialize()
-    except:
+    except Exception as e:
         b = str(plaintext)
     return b
 
