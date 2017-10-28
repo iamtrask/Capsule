@@ -102,3 +102,40 @@ class MPCCapsuleClient():
         # r = self.task_socket.recv()
         self.task_socket.recv()
         return True
+
+class SPDZCapsuleClient():
+
+    def __init__(self, repo):
+        self.id = str(random.randint(0, 2**32))
+        self.repo = repo
+        ctx = zmq.Context()
+        self.task_socket = ctx.socket(zmq.REQ)
+        self.task_socket.connect('tcp://127.0.0.1:5005')
+
+    def create_parties(self):
+        data = pickle.dumps(self.repo)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({
+            "task": "create_parties",
+            "task_kwargs": task_kwargs
+        }))
+        r = self.task_socket.recv()
+        self.repo1 = pickle.loads(r)
+        return self.repo1
+
+    def save(self, repo1):
+        data = pickle.dumps(repo1)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({
+            "task": "save_parties_ints",
+            "task_kwargs": task_kwargs
+        }))
+        # r = self.task_socket.recv()
+        self.task_socket.recv()
+        return True
