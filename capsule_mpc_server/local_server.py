@@ -19,7 +19,7 @@ while True:
         else:
             socket.send(server_data)
     except Exception as e:
-        print(e)
+        print(str(e))
 
 socket.close()
 context.term()

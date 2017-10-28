@@ -76,6 +76,9 @@ class MPCCapsuleClient():
         self.task_socket.connect('tcp://127.0.0.1:5003')
 
     def create_siblings(self):
+        """
+            This works with syft.mpc.rss.MPCRepo.
+        """
         data = pickle.dumps(self.repo)
         task_kwargs = {
             "key_id": self.id,
@@ -89,6 +92,23 @@ class MPCCapsuleClient():
         self.repo1 = pickle.loads(r)
         return self.repo1
 
+    def create_parties(self):
+        """
+            This works with syft.mpc.spdz.MPCRepo.
+        """
+        data = pickle.dumps(self.repo)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({
+            "task": "create_parties",
+            "task_kwargs": task_kwargs
+        }))
+        r = self.task_socket.recv()
+        self.repo1 = pickle.loads(r)
+        return self.repo1
+
     def save(self, repo1):
         data = pickle.dumps(repo1)
         task_kwargs = {
@@ -96,9 +116,21 @@ class MPCCapsuleClient():
             "data": data,
         }
         self.task_socket.send_string(str({
-            "task": "save_ints",
+            "task": 'save_ints',
             "task_kwargs": task_kwargs
         }))
-        # r = self.task_socket.recv()
+        self.task_socket.recv()
+        return True
+
+    def save_spdz(self, repo1):
+        data = pickle.dumps(repo1)
+        task_kwargs = {
+            "key_id": self.id,
+            "data": data,
+        }
+        self.task_socket.send_string(str({
+            "task": 'save_ints_spdz',
+            "task_kwargs": task_kwargs
+        }))
         self.task_socket.recv()
         return True
