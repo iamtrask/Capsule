@@ -100,6 +100,7 @@ class MPCCapsuleClient():
         self.task_socket.recv()
         return True
 
+
 class SPDZCapsuleClient():
     def __init__(self, repo):
         self.id = str(random.randint(0, 2**32))
