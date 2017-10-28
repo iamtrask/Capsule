@@ -104,7 +104,6 @@ class MPCCapsuleClient():
         return True
 
 class SPDZCapsuleClient():
-
     def __init__(self, repo):
         self.id = str(random.randint(0, 2**32))
         self.repo = repo
