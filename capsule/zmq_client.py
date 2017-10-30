@@ -5,13 +5,33 @@ import zmq
 import pickle
 
 
+class TaskSocket(object):
+    def __init__(self, context):
+        self.context = context
+        self.socket = context.socket(zmq.REQ)
+
+    def connect(self, server):
+        return self.socket.connect(server)
+
+    def send_string(self, string):
+        return self.socket.send_string(string)
+
+    def recv(self):
+        response = self.socket.recv()
+        output = pickle.loads(response)
+        if output.get('success'):
+            return output.get('payload')
+
+        raise Exception(output.get('payload'))
+
+
 class LocalCapsuleClient():
 
     def __init__(self, host='127.0.0.1', port='5000'):
         self.host = host
         self.port = port
         ctx = zmq.Context()
-        self.task_socket = ctx.socket(zmq.REQ)
+        self.task_socket = TaskSocket(ctx)
         self.task_socket.connect('tcp://127.0.0.1:5002')
 
     def keygen(self, scheme='paillier'):
@@ -58,10 +78,8 @@ class LocalCapsuleClient():
         }))
         r = self.task_socket.recv()
         try:
-            # print("Hello.........................")
             out = syft.tensor.TensorBase.deserialize(r)
         except Exception as e:
-            # print("Hello.........................")
             print(e)
             out = float(r)
         return out
@@ -72,7 +90,7 @@ class MPCCapsuleClient():
         self.id = str(random.randint(0, 2**32))
         self.repo = repo
         ctx = zmq.Context()
-        self.task_socket = ctx.socket(zmq.REQ)
+        self.task_socket = TaskSocket(ctx)
         self.task_socket.connect('tcp://127.0.0.1:5003')
 
     def create_siblings(self):
