@@ -1,6 +1,10 @@
 # capsule
 [![Build Status](https://travis-ci.org/OpenMined/Capsule.svg?branch=master)](https://travis-ci.org/OpenMined/Capsule)
 
+❗
+This library has been deprecated due to changes in strategy and roadmap. To actively contribute based on our current roadmap, checkout [OpenMined](https://github.com/OpenMined/OpenMined), [PySyft](https://github.com/OpenMined/PySyft), or [join our slack](https://openmined.slack.com/messages/team_pysyft)
+---
+
 > Service for Storing And Interacting with Secrets (particularly Keys or MPC Shares) Off Blockchain
 
 The goal of this library is to allow developers of OpenMined to simulate participating in a network where others have access to secret information that developers do not. In the trivial case, Capsule can generate a private Encryption key and never reveal it to the developer. See the [notebooks](./notebooks) folder for tutorials on how to use the library.
